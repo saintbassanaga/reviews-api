@@ -4,10 +4,10 @@ services:
     container_name: postgres_db
     environment:
       POSTGRES_DB: reviewsdb
-      POSTGRES_USER: ${SPRING_DATASOURCE_USER}
+      POSTGRES_USER: ${SPRING_DATASOURCE_USERNAME}
       POSTGRES_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
     ports:
-      - "5432:5432"
+      - "5436:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
 
@@ -20,13 +20,14 @@ services:
   app:
     build: .
     container_name: reviews_api
+    restart: on-failure
     ports:
-      - "8080:8080"
+      - "8081:8080"
     depends_on:
       - postgres
       - redis
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5436/reviewsdb
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres_db:5432/reviewsdb
       SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
       SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
       SPRING_REDIS_HOST: redis

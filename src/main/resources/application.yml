@@ -1,13 +1,13 @@
 server:
-  port: 8080
+  port: 8081
 
 spring:
   application:
     name: reviews-api
   datasource:
-    url: jdbc:postgresql://localhost:5432/reviewsdb
-    username: postgres
-    password: postgres
+    url: jdbc:postgresql://localhost:5436/reviewsdb
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -35,3 +35,5 @@ springdoc:
 jwt:
   secret: your_super_secret_jwt_key
   expirationMs: 3600000 # 1 hour
+
+
