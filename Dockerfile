@@ -4,7 +4,7 @@ FROM gradle:8.7-jdk21 AS builder
 WORKDIR /app
 
 # Copy only the necessary Gradle files first to cache dependencies
-COPY build.gradle.kts settings.gradle.kts gradlew ./
+COPY build.gradle settings.gradle gradlew ./
 COPY gradle ./gradle
 
 # Preload dependencies

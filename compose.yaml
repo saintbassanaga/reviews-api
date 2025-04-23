@@ -1,13 +1,14 @@
 services:
   postgres:
     image: postgres:latest
+    hostname: postgres_db
     container_name: postgres_db
     environment:
       POSTGRES_DB: reviewsdb
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: 23secret7
     ports:
-      - "5432:5432"
+      - "5436:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
 
@@ -17,18 +18,29 @@ services:
     ports:
       - "6379:6379"
 
+  rabbitmq:
+    image: rabbitmq:latest
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"   # AMQP protocol (your app uses this)
+      - "15672:15672" # Management UI (browser access)
+    environment:
+      RABBITMQ_DEFAULT_USER: root
+      RABBITMQ_DEFAULT_PASS: 23secret7
+
   app:
     build: .
     container_name: reviews_api
     ports:
-      - "8080:8080"
+      - "8081:8080"
     depends_on:
       - postgres
       - redis
+      - rabbitmq
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/reviewsdb
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres_db:5432/reviewsdb
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 23secret7
       SPRING_REDIS_HOST: redis
 
 volumes:
