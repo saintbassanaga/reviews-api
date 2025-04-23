@@ -24,5 +24,5 @@ public class Role extends AbstractEntity {
     private RoleGroup roleGroup;
 
     @ManyToMany(mappedBy = "roles")
-    private Set<User> users = new HashSet<>();
+    private Set<Users> users = new HashSet<>();
 }

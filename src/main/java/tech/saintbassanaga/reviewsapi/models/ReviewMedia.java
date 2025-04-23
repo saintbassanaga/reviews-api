@@ -1,7 +1,6 @@
 package tech.saintbassanaga.reviewsapi.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,5 +11,9 @@ import lombok.Setter;
 public class ReviewMedia extends AbstractEntity {
     private String mediaType;
     private String mediaUrl;
+
+    @OneToOne(cascade = CascadeType.ALL, optional = false, orphanRemoval = true)
+    @JoinColumn(name = "reviewId", nullable = false)
+    private Reviews reviews;
 
 }

@@ -13,12 +13,12 @@ import java.util.List;
 @Setter
 @Entity
 @Table(
-        name = "User",
+        name = "Users",
         uniqueConstraints = {
                 @UniqueConstraint(name = "username_unique", columnNames = "username")
         }
 )
-public class User extends AbstractEntity {
+public class Users extends AbstractEntity {
     @Embedded
     private Credentials credentials;
 

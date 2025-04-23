@@ -20,6 +20,6 @@ public class Reviews  extends  AbstractEntity{
 
     @ManyToOne(cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "userId", nullable = false)
-    private User user;
+    private Users user;
 
 }

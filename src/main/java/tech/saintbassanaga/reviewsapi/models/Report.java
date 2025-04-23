@@ -13,7 +13,7 @@ public class Report extends AbstractEntity {
 
     @ManyToOne(cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "userId", nullable = false)
-    private User user;
+    private Users user;
 
     @ManyToOne(cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "reviewsId", nullable = false)
