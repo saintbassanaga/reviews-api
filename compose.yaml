@@ -2,6 +2,9 @@ services:
   postgres:
     image: postgres:latest
     hostname: postgres_db
+    profiles:
+      - prod
+      - dev
     container_name: postgres_db
     environment:
       POSTGRES_DB: reviewsdb
@@ -14,11 +17,17 @@ services:
 
   redis:
     image: redis:latest
+    profiles:
+      - prod
+      - dev
     container_name: redis_cache
     ports:
       - "6379:6379"
 
   rabbitmq:
+    profiles:
+      - prod
+      - dev
     image: rabbitmq:latest
     container_name: rabbitmq
     ports:
@@ -30,6 +39,8 @@ services:
 
   app:
     build: .
+    profiles:
+      - prod
     container_name: reviews_api
     ports:
       - "8081:8080"

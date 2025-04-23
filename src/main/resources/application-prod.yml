@@ -10,11 +10,16 @@ spring:
       host: ${PROD_REDIS_HOST}
       port: ${PROD_REDIS_PORT}
 
+
   rabbitmq:
     host: ${PROD_RABBITMQ_HOST}
     port: 5672
     username: ${PROD_RABBITMQ_USERNAME}
     password: ${PROD_RABBITMQ_PASSWORD}
+  docker:
+    compose:
+      profiles:
+        active: prod
 
 jwt:
   secret: ${PROD_JWT_SECRET}

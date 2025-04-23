@@ -17,10 +17,6 @@ LABEL org.opencontainers.image.created=$BUILD_DATE \
       org.opencontainers.image.title="Reviews API" \
       org.opencontainers.image.description="A scalable Reviews API built with Spring Boot 3, PostgreSQL, Redis, and JWT."
 
-
-
-
-
 # Copy Gradle config and download dependencies
 COPY gradle gradle
 COPY build.gradle settings.gradle ./

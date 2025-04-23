@@ -11,10 +11,16 @@ spring:
       port: 6379
 
   rabbitmq:
-    host: localhost
-    port: 5672 # Note: Admin console is 15672, connection port is usually 5672
-    username: guest
-    password: guest
+    host: ${PROD_RABBITMQ_HOST}
+    port: 5672
+    username: ${PROD_RABBITMQ_USERNAME}
+    password: ${PROD_RABBITMQ_PASSWORD}
+
+
+  docker:
+    compose:
+      profiles:
+        active: dev
 
 
 jwt:
