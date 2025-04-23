@@ -38,9 +38,9 @@ services:
       - redis
       - rabbitmq
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres_db:5432/reviewsdb
-      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
-      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+      SPRING_DATASOURCE_URL: jdbc:postgresql://${PROD_DB_HOST}:${PROD_DB_PORT}/${PROD_DB_NAME}
+      SPRING_DATASOURCE_USERNAME: ${PROD_DB_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${PROD_DB_PASSWORD}
       SPRING_REDIS_HOST: redis
 
 volumes:
