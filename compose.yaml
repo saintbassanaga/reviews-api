@@ -5,8 +5,8 @@ services:
     container_name: postgres_db
     environment:
       POSTGRES_DB: reviewsdb
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: 23secret7
+      POSTGRES_USER: ${SPRING_DATASOURCE_USERNAME}
+      POSTGRES_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
     ports:
       - "5436:5432"
     volumes:
@@ -25,8 +25,8 @@ services:
       - "5672:5672"   # AMQP protocol (your app uses this)
       - "15672:15672" # Management UI (browser access)
     environment:
-      RABBITMQ_DEFAULT_USER: root
-      RABBITMQ_DEFAULT_PASS: 23secret7
+      RABBITMQ_DEFAULT_USER: ${SPRING_DATASOURCE_USERNAME}
+      RABBITMQ_DEFAULT_PASS: ${SPRING_DATASOURCE_PASSWORD}
 
   app:
     build: .
@@ -39,8 +39,8 @@ services:
       - rabbitmq
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres_db:5432/reviewsdb
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: 23secret7
+      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
       SPRING_REDIS_HOST: redis
 
 volumes:
