@@ -24,7 +24,6 @@ spring:
     multipart:
       max-file-size: 5MB
       max-request-size: 5MB
-
   data:
     redis:
       host: localhost
@@ -32,9 +31,17 @@ spring:
 
   rabbitmq:
     host: rabbitmq
-    port: 5672
+    port: 15672
     username: root
     password: 23secret7
+
+  docker:
+    compose:
+      lifecycle-management: start_only
+      readiness:
+        wait: always
+      start:
+        log-level: info
 
 springdoc:
   swagger-ui:
