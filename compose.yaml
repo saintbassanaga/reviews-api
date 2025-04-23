@@ -30,6 +30,7 @@ services:
       - dev
     image: rabbitmq:latest
     container_name: rabbitmq
+    hostname: localhost | ${PROD_RABBITMQ_HOST}
     ports:
       - "5672:5672"   # AMQP protocol (your app uses this)
       - "15672:15672" # Management UI (browser access)
