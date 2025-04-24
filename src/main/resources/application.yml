@@ -19,7 +19,7 @@ spring:
     compose:
       lifecycle-management: start_only
       readiness:
-        wait: always
+        wait: never
       start:
         log-level: info
 

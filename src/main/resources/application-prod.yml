@@ -17,6 +17,7 @@ spring:
     password: ${PROD_RABBITMQ_PASSWORD}
 
 
+
   docker:
     compose:
       profiles:
