@@ -1,22 +1,24 @@
-/*
 package tech.saintbassanaga.reviewsapi.services;
 
+import org.springframework.data.domain.AuditorAware;
 import org.springframework.lang.NonNull;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
-*/
+
 /**
  * Created by saintbassanaga {saintbassanaga}
- * In the Project ProMan at Tue - 3/18/25
- *//*
+ * In the Project Reviews-API at Tue - 4/28/25
+ */
 
 @Component
-public class AuditorAware implements AuditorAware<String> {
+public class AuditorAwareImpls implements AuditorAware<String> {
+
     @Override
-    @NonNull
-    public Optional<String> getCurrentAuditor() {
+    public @NonNull Optional<String> getCurrentAuditor() {
         return Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication())
                 .map(authentication -> {
                     if (authentication.getPrincipal() instanceof UserDetails userDetails) {
@@ -25,7 +27,8 @@ public class AuditorAware implements AuditorAware<String> {
                     return authentication.getPrincipal().toString();
                 })
                 // Ensure it never returns an empty Optional
-                .filter(username -> username == null || !username.isEmpty())
+                .filter(username -> !username.isEmpty())
                 .or(() -> Optional.of("SYSTEM")); // Default value when no user is authenticated
     }
-}*/
+
+}
