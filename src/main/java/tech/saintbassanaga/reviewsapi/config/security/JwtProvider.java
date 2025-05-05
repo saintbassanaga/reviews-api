@@ -76,6 +76,5 @@ public class JwtProvider {
         return token;
     }
 
-
 }
 
