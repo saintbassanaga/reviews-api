@@ -2,21 +2,23 @@ server:
   port: 8080
 
 spring:
-    profiles:
-      active: prod
+  profiles:
+    active: prod
   application:
     name: reviews-api
 
+
   jpa:
     hibernate:
-      ddl-auto: update
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: true
     properties:
       hibernate:
         format_sql: true
+        default_schema: public
     open-in-view: false
+
 
   docker:
     compose:
@@ -25,6 +27,9 @@ spring:
         wait: never
       start:
         log-level: info
+  devtools:
+    livereload:
+      enabled: off
 
 
 springdoc:
@@ -37,3 +42,8 @@ jwt:
 rsa:
   private-key: ./private.pem
   public-key: ./public.pem
+
+logging:
+  level:
+    root:  info
+

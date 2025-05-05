@@ -1,14 +1,19 @@
 spring:
   datasource:
-    url: jdbc:postgresql://206.81.18.5:5436/reviewsdb
-    username: ${PROD_DB_USERNAME}
-    password: ${PROD_DB_PASSWORD}
-    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://reviews-db-do-user-18401247-0.j.db.ondigitalocean.com:25060/reviewsdb?sslmode=require
+    username: root
+    password: AVNS_-Nf7e1gDpyCSkS2M2BN
+    name: org.postgresql.Driver
+
+
 
   data:
     redis:
       host: ${PROD_REDIS_HOST}
       port: ${PROD_REDIS_PORT}
+    jdbc:
+      dialect: postgresql
+
 
   rabbitmq:
     host: localhost | ${PROD_RABBITMQ_HOST}
@@ -22,6 +27,9 @@ spring:
     compose:
       profiles:
         active: prod
+      enabled: true
+  jpa:
+    generate-ddl: false
 
 jwt:
   secret: ${PROD_JWT_SECRET}

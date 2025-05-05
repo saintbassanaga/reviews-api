@@ -3,7 +3,6 @@ services:
     image: postgres:latest
     hostname: postgres_db
     profiles:
-      - prod
       - dev
     container_name: postgres_db
     environment:
@@ -46,7 +45,6 @@ services:
     ports:
       - "8081:8080"
     depends_on:
-      - postgres
       - redis
       - rabbitmq
     environment:
