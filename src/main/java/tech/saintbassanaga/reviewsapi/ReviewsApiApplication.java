@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import tech.saintbassanaga.reviewsapi.config.security.RsaKeyConfig;
 import tech.saintbassanaga.reviewsapi.services.AuditorAwareImpls;
 
 import java.io.IOException;
@@ -26,7 +25,6 @@ import java.util.Base64;
 @SpringBootApplication
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true, securedEnabled = true)
-@EnableConfigurationProperties({RsaKeyConfig.class})
 public class ReviewsApiApplication implements CommandLineRunner {
 
     public static void main(String[] args) {

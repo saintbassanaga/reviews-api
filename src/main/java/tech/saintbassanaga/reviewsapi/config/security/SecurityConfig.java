@@ -1,9 +1,8 @@
 package tech.saintbassanaga.reviewsapi.config.security;
 
-import com.nimbusds.jose.jwk.JWK;
+import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
-import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 import lombok.RequiredArgsConstructor;
@@ -25,64 +24,94 @@ import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import tech.saintbassanaga.reviewsapi.config.handlers.CustomAccessDeniedHandler;
 import tech.saintbassanaga.reviewsapi.config.handlers.CustomAuthenticationHandler;
+import tech.saintbassanaga.reviewsapi.config.security.jose.PersistentJwks;
 
-import java.security.interfaces.RSAPrivateKey;
-
-
-/**
- * @author hmekeng
- * @created 10/03/2025 - 14:56
- * @project mercurial-rest
- * @package com.siic.dgls.mercurial.config.security
- */
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final RsaKeyConfig rsaKeyConfig;
+    // PersistentJwks is used to manage RSA keys for JWT signing and verification.
+    private final PersistentJwks persistentJwks;
 
+    // PasswordEncoder is used to encode and verify user passwords.
     private final PasswordEncoder passwordEncoder;
 
+    /**
+     * Configures the security filter chain for the application.
+     *
+     * @param http the HttpSecurity object to configure security settings
+     * @return the configured SecurityFilterChain
+     * @throws Exception if an error occurs during configuration
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-                .csrf(AbstractHttpConfigurer::disable)
+                .csrf(AbstractHttpConfigurer::disable) // Disables CSRF protection.
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**")
-                        .permitAll().anyRequest().permitAll())
-                     //   .authenticated())
-                .oauth2ResourceServer(OAuth2 -> OAuth2.jwt(Customizer.withDefaults()))
-                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .httpBasic(Customizer.withDefaults())
-                .exceptionHandling(ex-> ex
-                        .authenticationEntryPoint(new CustomAuthenticationHandler())
-                        .accessDeniedHandler(new CustomAccessDeniedHandler())
+                        .permitAll() // Allows public access to Swagger and API documentation.
+                        .anyRequest().permitAll()) // Permits all other requests (can be changed to authenticated()).
+                .oauth2ResourceServer(OAuth2 -> OAuth2.jwt(Customizer.withDefaults())) // Configures OAuth2 resource server with JWT.
+                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Sets session management to stateless.
+                .httpBasic(Customizer.withDefaults()) // Enables HTTP Basic authentication.
+                .exceptionHandling(ex -> ex
+                        .authenticationEntryPoint(new CustomAuthenticationHandler()) // Custom handler for authentication failures.
+                        .accessDeniedHandler(new CustomAccessDeniedHandler()) // Custom handler for access denied errors.
                 )
                 .build();
-
     }
 
+    /**
+     * Configures the AuthenticationManager with a DaoAuthenticationProvider.
+     *
+     * @param userDetailsService the UserDetailsService to load user-specific data
+     * @return the configured AuthenticationManager
+     */
     @Bean
     public AuthenticationManager authenticationManager(UserDetailsService userDetailsService) {
         var daoAuthProvider = new DaoAuthenticationProvider();
-        daoAuthProvider.setPasswordEncoder(passwordEncoder);
-        daoAuthProvider.setUserDetailsService(userDetailsService);
-        return new ProviderManager(daoAuthProvider);
+        daoAuthProvider.setPasswordEncoder(passwordEncoder); // Sets the password encoder.
+        daoAuthProvider.setUserDetailsService(userDetailsService); // Sets the user details service.
+        return new ProviderManager(daoAuthProvider); // Returns a ProviderManager with the configured provider.
     }
 
+    /**
+     * Provides a JWKSource for managing JSON Web Keys (JWK).
+     *
+     * @return the configured JWKSource
+     */
     @Bean
-    JwtDecoder jwtDecoder() {
-        return NimbusJwtDecoder.withPublicKey(rsaKeyConfig.publicKey()).build();
+    public JWKSource<SecurityContext> jwkSource() {
+        RSAKey rsaKey = persistentJwks.getRsaKey(); // Retrieves the RSA key.
+        JWKSet jwkSet = new JWKSet(rsaKey); // Creates a JWKSet with the RSA key.
+        return (jwkSelector, securityContext) -> jwkSelector.select(jwkSet); // Returns a JWKSource for key selection.
     }
 
+    /**
+     * Configures a JwtEncoder for encoding JWTs.
+     *
+     * @param jwkSource the JWKSource used for signing JWTs
+     * @return the configured JwtEncoder
+     */
     @Bean
-    JwtEncoder jwtEncoder() {
-        JWK jwk = new RSAKey.Builder(rsaKeyConfig.publicKey()).privateKey(rsaKeyConfig.privateKey()).build();
-        JWKSource<SecurityContext> jwkSource = new ImmutableJWKSet<>(new JWKSet(jwk));
-        return new NimbusJwtEncoder(jwkSource);
+    public JwtEncoder jwtEncoder(JWKSource<SecurityContext> jwkSource) {
+        return new NimbusJwtEncoder(jwkSource); // Creates a NimbusJwtEncoder with the provided JWKSource.
     }
 
-
+    /**
+     * Configures a JwtDecoder for decoding JWTs.
+     *
+     * @return the configured JwtDecoder
+     * @throws RuntimeException if an error occurs while creating the decoder
+     */
+    @Bean
+    public JwtDecoder jwtDecoder() {
+        try {
+            return NimbusJwtDecoder.withPublicKey(persistentJwks.getPublicKey()).build(); // Creates a JwtDecoder with the public key.
+        } catch (JOSEException e) {
+            throw new RuntimeException(e); // Wraps and rethrows JOSEException as a RuntimeException.
+        }
+    }
 }
