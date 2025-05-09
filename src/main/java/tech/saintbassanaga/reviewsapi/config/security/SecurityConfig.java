@@ -26,6 +26,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import tech.saintbassanaga.reviewsapi.config.handlers.CustomAccessDeniedHandler;
 import tech.saintbassanaga.reviewsapi.config.handlers.CustomAuthenticationHandler;
 
+import java.security.interfaces.RSAPrivateKey;
+
 
 /**
  * @author hmekeng
@@ -38,6 +40,7 @@ import tech.saintbassanaga.reviewsapi.config.handlers.CustomAuthenticationHandle
 public class SecurityConfig {
 
     private final RsaKeyConfig rsaKeyConfig;
+
     private final PasswordEncoder passwordEncoder;
 
     @Bean
