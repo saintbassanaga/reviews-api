@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://reviews-db-do-user-18401247-0.j.db.ondigitalocean.com:25060/reviewsdb?sslmode=require
-    username: root
-    password: AVNS_-Nf7e1gDpyCSkS2M2BN
+    url: jdbc:postgresql://${PROD_DB_HOST}:25060/reviewsdb?sslmode=require
+    username: ${PROD_DB_USERNAME}
+    password: ${PROD_DB_PASSWORD}
     name: org.postgresql.Driver
 
 
