@@ -1,0 +1,159 @@
+@startuml
+
+!theme plain
+left to right direction
+skinparam linetype ortho
+
+class AbstractEntity {
+  + getId(): UUID
+  + getCreatedDate(): Timestamp
+  + getLastModifiedDate(): Timestamp
+  + getCreatedBy(): String
+  + getLastModifiedBy(): String
+  + getVersion(): Long
+  + setId(UUID): void
+  + setVersion(Long): void
+  + setCreatedDate(Timestamp): void
+  + setLastModifiedDate(Timestamp): void
+  + setCreatedBy(String): void
+  + setLastModifiedBy(String): void
+}
+class Categories {
+  + getId(): UUID
+  + getName(): String
+  + setId(UUID): void
+  + setName(String): void
+}
+class Comments {
+  + getContent(): String
+  + getUser(): Users
+  + getReviews(): Reviews
+  + setContent(String): void
+  + setUser(Users): void
+  + setReviews(Reviews): void
+}
+class Histories {
+  + getFeeling(): String
+  + getRating(): String
+  + getReviews(): Reviews
+  + setFeeling(String): void
+  + setRating(String): void
+  + setReviews(Reviews): void
+}
+class Moderations {
+  + getReviews(): Reviews
+  + getUser(): Users
+  + getStatus(): String
+  + setReviews(Reviews): void
+  + setUser(Users): void
+  + setStatus(String): void
+}
+class Notifications {
+  + getType(): String
+  + getMessage(): String
+  + getUser(): Users
+  + isRead(): boolean
+  + setType(String): void
+  + setMessage(String): void
+  + setUser(Users): void
+  + setRead(boolean): void
+}
+class Products {
+  + getName(): String
+  + getDescription(): String
+  + getCategories(): Categories
+  + setName(String): void
+  + setDescription(String): void
+  + setCategories(Categories): void
+}
+class Report {
+  + getReason(): String
+  + getUser(): Users
+  + getReviews(): Reviews
+  + setReason(String): void
+  + setUser(Users): void
+  + setReviews(Reviews): void
+}
+class ReviewMedia {
+  + getMediaType(): String
+  + getMediaUrl(): String
+  + getReviews(): Reviews
+  + setMediaType(String): void
+  + setMediaUrl(String): void
+  + setReviews(Reviews): void
+}
+class Reviews {
+  + getFeeling(): String
+  + getRating(): Integer
+  + getProducts(): Products
+  + getUser(): Users
+  + setFeeling(String): void
+  + setRating(Integer): void
+  + setProducts(Products): void
+  + setUser(Users): void
+}
+class Role {
+  + getDesignations(): String
+  + getDescription(): String
+  + getRoleGroup(): RoleGroup
+  + getUsers(): Set<Users>
+  + setDesignations(String): void
+  + setDescription(String): void
+  + setRoleGroup(RoleGroup): void
+  + setUsers(Set<Users>): void
+}
+class TrustLevel {
+  + getId(): UUID
+  + getName(): String
+  + getDescription(): String
+  + setId(UUID): void
+  + setName(String): void
+  + setDescription(String): void
+}
+class Users {
+  + getCredentials(): Credentials
+  + getTrustLevel(): TrustLevel
+  + getRoles(): List<Role>
+  + setCredentials(Credentials): void
+  + setTrustLevel(TrustLevel): void
+  + setRoles(List<Role>): void
+}
+class Votes {
+  + getType(): String
+  + getUser(): Users
+  + getReviews(): Reviews
+  + setType(String): void
+  + setUser(Users): void
+  + setReviews(Reviews): void
+}
+class node2 as "package  tech.saintbassanaga.reviewsapi.models.embeded" << package >>
+
+Comments        -[#000082,plain]-^  AbstractEntity 
+Comments       "1" *-[#595959,plain]-> "reviews\n1" Reviews        
+Comments       "1" *-[#595959,plain]-> "user\n1" Users          
+Histories       -[#000082,plain]-^  AbstractEntity 
+Histories      "1" *-[#595959,plain]-> "reviews\n1" Reviews        
+Moderations     -[#000082,plain]-^  AbstractEntity 
+Moderations    "1" *-[#595959,plain]-> "reviews\n1" Reviews        
+Moderations    "1" *-[#595959,plain]-> "user\n1" Users          
+Notifications   -[#000082,plain]-^  AbstractEntity 
+Notifications  "1" *-[#595959,plain]-> "user\n1" Users          
+Products        -[#000082,plain]-^  AbstractEntity 
+Products       "1" *-[#595959,plain]-> "categories\n1" Categories     
+Report          -[#000082,plain]-^  AbstractEntity 
+Report         "1" *-[#595959,plain]-> "reviews\n1" Reviews        
+Report         "1" *-[#595959,plain]-> "user\n1" Users          
+ReviewMedia     -[#000082,plain]-^  AbstractEntity 
+ReviewMedia    "1" *-[#595959,plain]-> "reviews\n1" Reviews        
+Reviews         -[#000082,plain]-^  AbstractEntity 
+Reviews        "1" *-[#595959,plain]-> "products\n1" Products       
+Reviews        "1" *-[#595959,plain]-> "user\n1" Users          
+Role            -[#000082,plain]-^  AbstractEntity 
+Role           "1" *-[#595959,plain]-> "users\n*" Users          
+Users           -[#000082,plain]-^  AbstractEntity 
+Users          "1" *-[#595959,plain]-> "roles\n*" Role           
+Users          "1" *-[#595959,plain]-> "trustLevel\n1" TrustLevel     
+Votes           -[#000082,plain]-^  AbstractEntity 
+Votes          "1" *-[#595959,plain]-> "reviews\n1" Reviews        
+Votes          "1" *-[#595959,plain]-> "user\n1" Users          
+@enduml
