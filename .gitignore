@@ -1,3 +1,6 @@
+/src/main/resources/private.pem
+/src/main/resources/public.pem
+/src/main/resources/keypair.pem
 HELP.md
 .env
 .gradle
