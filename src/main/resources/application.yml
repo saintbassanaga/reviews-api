@@ -39,9 +39,7 @@ springdoc:
 jwt:
   expirationMs: 3600000 # 1 hour
 
-rsa:
-  private-key: ${RSA_PRIVATE_KEY:/tmp/private.pem}
-  public-key: ${RSA_PUBLIC_KEY:/tmp/public.pem}
+
 
 
 logging:

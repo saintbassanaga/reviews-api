@@ -2,10 +2,14 @@ package tech.saintbassanaga.reviewsapi.config;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.security.KeyFactory;
+import java.security.interfaces.RSAPrivateKey;
+import java.security.interfaces.RSAPublicKey;
 import java.util.Base64;
 /**
  * Created by saintbassanaga {saintbassanaga}
@@ -15,24 +19,26 @@ import java.util.Base64;
 @Component
 public class RsaApplayer {
 
-    @Value("${RSA_PRIVATE_KEY}")
+    @Value("${rsa.private-key}")
     private String privateKeyBase64;
 
-    @Value("${RSA_PUBLIC_KEY}")
+    @Value("${rsa.public-key}")
     private String publicKeyBase64;
 
-    @Value("${RSA_PRIVATE_KEY_PATH:/tmp/private.pem}")
-    private String privateKeyPath;
 
-    @Value("${RSA_PUBLIC_KEY_PATH:/tmp/public.pem}")
-    private String publicKeyPath;
+    @Bean
+    public RSAPrivateKey privateKey() throws Exception {
+        // Decode the Base64 string and convert it into a PrivateKey object
+        byte[] decodedKey = Base64.getDecoder().decode(privateKeyBase64);
+        KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+        return (RSAPrivateKey) keyFactory.generatePrivate(new java.security.spec.PKCS8EncodedKeySpec(decodedKey));
+    }
 
-    @PostConstruct
-    public void init() throws Exception {
-        byte[] privateKeyBytes = Base64.getDecoder().decode(privateKeyBase64);
-        Files.write(Paths.get(privateKeyPath), privateKeyBytes);
-
-        byte[] publicKeyBytes = Base64.getDecoder().decode(publicKeyBase64);
-        Files.write(Paths.get(publicKeyPath), publicKeyBytes);
+    @Bean
+    public RSAPublicKey publicKey() throws Exception {
+        // Decode the Base64 string and convert it into a PublicKey object
+        byte[] decodedKey = Base64.getDecoder().decode(publicKeyBase64);
+        KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+        return (RSAPublicKey) keyFactory.generatePublic(new java.security.spec.X509EncodedKeySpec(decodedKey));
     }
 }

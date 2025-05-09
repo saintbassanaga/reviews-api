@@ -5,31 +5,31 @@ spring:
     password: ${PROD_DB_PASSWORD}
     name: org.postgresql.Driver
 
-
-
   data:
+    jdbc:
+      dialect: postgresql
     redis:
       host: ${PROD_REDIS_HOST}
       port: ${PROD_REDIS_PORT}
-    jdbc:
-      dialect: postgresql
 
+  jpa:
+    generate-ddl: false
 
   rabbitmq:
     host: localhost | ${PROD_RABBITMQ_HOST}
     port: 5672
     username: ${PROD_RABBITMQ_USERNAME}
     password: ${PROD_RABBITMQ_PASSWORD}
-
-
-
   docker:
     compose:
+      enabled: true
       profiles:
         active: prod
-      enabled: true
-  jpa:
-    generate-ddl: false
+
+
+rsa:
+  private-key: ${RSA_PRIVATE_KEY}
+  public-key: ${RSA_PUBLIC_KEY}
 
 jwt:
   secret: ${PROD_JWT_SECRET}
