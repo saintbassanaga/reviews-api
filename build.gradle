@@ -50,6 +50,15 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             from components.java
+
+            versionMapping {
+                usage('java-api') {
+                    fromResolutionResult()
+                }
+                usage('java-runtime') {
+                    fromResolutionResult()
+                }
+            }
             groupId = 'tech.saintbassanaga'
             artifactId = 'reviews-api'
             version = '0.0.1-SNAPSHOT'
