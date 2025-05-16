@@ -51,6 +51,11 @@ publishing {
         mavenJava(MavenPublication) {
             from components.java
 
+            groupId = 'tech.saintbassanaga'
+            artifactId = 'reviews-api'
+            version = '0.0.1-SNAPSHOT'
+
+            // Resolves version conflicts for dependencies in the published POM
             versionMapping {
                 usage('java-api') {
                     fromResolutionResult()
@@ -59,9 +64,6 @@ publishing {
                     fromResolutionResult()
                 }
             }
-            groupId = 'tech.saintbassanaga'
-            artifactId = 'reviews-api'
-            version = '0.0.1-SNAPSHOT'
         }
     }
 
