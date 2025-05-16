@@ -1,4 +1,4 @@
-package tech.saintbassanaga.reviewsapi.services;
+package tech.saintbassanaga.reviewsapi.services.impls;
 
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.lang.NonNull;
