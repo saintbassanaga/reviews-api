@@ -24,8 +24,7 @@ spring:
     compose:
       profiles:
         active: dev
-  jpa:
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
 
 jwt:
   secret: ${JWT_SECRET}
