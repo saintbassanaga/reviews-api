@@ -53,7 +53,7 @@ publishing {
 
             groupId = 'tech.saintbassanaga'
             artifactId = 'reviews-api'
-            version = '0.0.1-SNAPSHOT'
+            version = '0.1.0'
 
             // Resolves version conflicts for dependencies in the published POM
             versionMapping {
