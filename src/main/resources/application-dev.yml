@@ -9,6 +9,9 @@ spring:
     redis:
       host: localhost
       port: 6379
+    jdbc:
+
+
 
   rabbitmq:
     host: ${PROD_RABBITMQ_HOST}
@@ -21,7 +24,8 @@ spring:
     compose:
       profiles:
         active: dev
-
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
 
 jwt:
   secret: ${JWT_SECRET}
