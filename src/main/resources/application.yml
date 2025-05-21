@@ -18,6 +18,7 @@ spring:
         format_sql: true
         default_schema: public
     open-in-view: false
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
 
 
   docker:
