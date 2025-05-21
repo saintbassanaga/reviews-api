@@ -1,0 +1,41 @@
+#  (2025-05-21)
+
+
+### Features
+
+* add detailed documentation for various entity classes to improve code clarity and maintainability ([c92f748](https://github.com/saintbassanaga/reviews-api/commit/c92f74863649ce9ba77758581166bc8dbe63d584))
+* add detailed JavaDoc comments to entity classes ([3cd02d6](https://github.com/saintbassanaga/reviews-api/commit/3cd02d6f9bd1747276866bf279a14a2109806a31))
+* add Docker configuration for PostgreSQL and Redis, and create Dockerfile for Reviews API ([57a5214](https://github.com/saintbassanaga/reviews-api/commit/57a5214c6388b721514b673ab371938da26c2869))
+* add entity models and configuration for user roles, reviews, and notifications ([c6beaf0](https://github.com/saintbassanaga/reviews-api/commit/c6beaf0c24e8ab30a71cce1c3c7ff5cf476cb6de))
+* add environment file to Docker Compose and remove key generation logic from ReviewsApiApplication ([e62c64b](https://github.com/saintbassanaga/reviews-api/commit/e62c64b9bff854365fc8fe4cf0251165e8aebb2a))
+* add example environment variables for development and production configurations ([81365ae](https://github.com/saintbassanaga/reviews-api/commit/81365ae8c797089a447feb2c1f56458b9e7470b3))
+* add PEM files for public and private key storage ([5ede3c8](https://github.com/saintbassanaga/reviews-api/commit/5ede3c8148e58677902a70a5e4bb5d805bad46b4))
+* add PEM files to .gitignore for key storage ([0a94cc8](https://github.com/saintbassanaga/reviews-api/commit/0a94cc8daf99503b6b7fe6348da6a3e0c92fbecc))
+* add RsaKeyConfig bean to SecurityConfig and update RsaApplayer ([fe5fcc5](https://github.com/saintbassanaga/reviews-api/commit/fe5fcc50752864fefad4ad8f69be70f04dc81a17))
+* add service and repository interfaces for admin, auth, product, and reviews ([659d56d](https://github.com/saintbassanaga/reviews-api/commit/659d56d009f2c926e1aa01510bfcc4e50ad211a3))
+* add UML diagram for entity relationships in Reviews API ([385986d](https://github.com/saintbassanaga/reviews-api/commit/385986dcee804c629331f9a86d7ea4fefe225d69))
+* add version mapping for Java API and runtime in build.gradle ([7242215](https://github.com/saintbassanaga/reviews-api/commit/724221526b4c09b222e7f74fee1f7307d3084b57))
+* configure database platform for PostgreSQL in application.yml ([5d67c21](https://github.com/saintbassanaga/reviews-api/commit/5d67c21f6f5f028acbe914d0fe0870f190326ae5))
+* enhance ApiResponse class with detailed documentation and add utility methods for standardized responses ([f8af2d2](https://github.com/saintbassanaga/reviews-api/commit/f8af2d26cd1fb0509cee6fb18f2c6edc088324a6))
+* implement Jwks and KeyGeneratorUtils for RSA and EC key generation, and add PersistentJwks for key management ([168bc47](https://github.com/saintbassanaga/reviews-api/commit/168bc473259d973df9cc282d1152e39cd00bbe06))
+* implement JWT authentication and authorization with custom handlers and security configuration ([4b9e442](https://github.com/saintbassanaga/reviews-api/commit/4b9e44251a98b2fbaacecfbb1784cf74fb4c1aa2))
+* implement JWT authentication and authorization with custom handlers and security configuration ([970acb2](https://github.com/saintbassanaga/reviews-api/commit/970acb287a89b2d16c4109c79ba7d66afef3a421))
+* implement key pair generation and PEM file output in ReviewsApiApplication ([983bb95](https://github.com/saintbassanaga/reviews-api/commit/983bb955358375e1d5fdd3fd1072f115fc5b96b4))
+* refactor application configuration to use environment variables for database, Redis, and RabbitMQ ([817df23](https://github.com/saintbassanaga/reviews-api/commit/817df230819a39f58b55cea02ce034b9df1256c5))
+* refactor RsaApplayer to use @Configuration and streamline key loading ([e2ec755](https://github.com/saintbassanaga/reviews-api/commit/e2ec755dab584414fae8354e3cd05f135b6bad58))
+* rename User class to Users and update references in related models ([8d43f0e](https://github.com/saintbassanaga/reviews-api/commit/8d43f0e17ecb3c62d3a746c733d11af45c8c9e31))
+* update application configuration and refactor package structure for AuditorAware implementation ([96db0bf](https://github.com/saintbassanaga/reviews-api/commit/96db0bf7e3c9f16065fadae5672b0043c08ccd25))
+* update application configuration and refactor package structure for AuditorAware implementation ([6e5a6e6](https://github.com/saintbassanaga/reviews-api/commit/6e5a6e60644acced5d183766d13dcf891327a108))
+* update application-prod.yml to use environment variables for database configuration ([aa0b435](https://github.com/saintbassanaga/reviews-api/commit/aa0b435150429bb33aecd980bd8b8a4fe2b9e3e7))
+* update application-prod.yml to use environment variables for database configuration ([3bedd4a](https://github.com/saintbassanaga/reviews-api/commit/3bedd4af6b838198d305f92fa25c18bbf96162ed))
+* update application.yml to use environment variables for RSA key paths and add RsaApplayer for key file generation ([16557c0](https://github.com/saintbassanaga/reviews-api/commit/16557c0d5ffa43882ed1168161492ec2ca909431))
+* update compose.yaml to use environment variables for database and RabbitMQ credentials ([2842cd5](https://github.com/saintbassanaga/reviews-api/commit/2842cd56782cd1d29320a3214423d231624ed4bf))
+* update Docker and application configuration for PostgreSQL and RabbitMQ ([e7fa41c](https://github.com/saintbassanaga/reviews-api/commit/e7fa41c5448b4eafc9227f62e23742f90f817514))
+* update Dockerfile for multi-stage build and enhance application.yml configuration ([748a5c6](https://github.com/saintbassanaga/reviews-api/commit/748a5c648f129441170a06866cb3076766d75b30))
+* update RabbitMQ configuration to remove unnecessary localhost fallback ([74fe5cd](https://github.com/saintbassanaga/reviews-api/commit/74fe5cdabd69a244a74e0fe3ce94c2b1e1770547))
+* update RabbitMQ configuration to support localhost fallback in production ([b38e5cb](https://github.com/saintbassanaga/reviews-api/commit/b38e5cb6f099faf5e480dec15a0abf5e1b2004d3))
+* update RSA key configuration to use environment variables and refactor key loading ([c5431e4](https://github.com/saintbassanaga/reviews-api/commit/c5431e456effaad4128a30293c2a6019f43c94c3))
+* update version mapping and resolve dependency conflicts in build.gradle ([a0cce0e](https://github.com/saintbassanaga/reviews-api/commit/a0cce0e9edbb740883837da79c25118f884aa567))
+
+
+
