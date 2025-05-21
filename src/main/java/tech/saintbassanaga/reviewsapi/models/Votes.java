@@ -17,12 +17,28 @@ import lombok.Setter;
 @Entity
 @Table(name = "Votes")
 public class Votes extends AbstractEntity {
+    /**
+     * The type of vote cast by the user.
+     * This field indicates the nature of the vote, such as "upvote", "downvote", 
+     * "helpful", "not helpful", etc., allowing for different voting mechanisms
+     * within the system.
+     */
     private String type;
 
+    /**
+     * The user who cast the vote.
+     * This establishes a mandatory many-to-one relationship with the Users entity.
+     * Changes to the associated user will cascade to this vote.
+     */
     @ManyToOne(cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "userId", nullable = false)
     private Users user;
 
+    /**
+     * The review that received the vote.
+     * This establishes a mandatory many-to-one relationship with the Reviews entity.
+     * Changes to the associated review will cascade to this vote.
+     */
     @ManyToOne(cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "reviewsId", nullable = false)
     private Reviews reviews;

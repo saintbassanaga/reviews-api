@@ -26,14 +26,33 @@ import lombok.Setter;
 @Entity
 @Table(name = "Notifications")
 public class Notifications extends AbstractEntity {
+    /**
+     * The category or nature of the notification.
+     * This field helps classify notifications for filtering and display purposes.
+     * Examples might include "review_comment", "moderation_update", etc.
+     */
     private String type;
 
+    /**
+     * The content or body of the notification.
+     * This contains the actual information to be conveyed to the user.
+     */
     private String message;
 
+    /**
+     * The user who will receive this notification.
+     * This establishes a mandatory many-to-one relationship with the Users entity.
+     * Changes to the associated user will cascade to this notification.
+     */
     @ManyToOne(cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "userId", nullable = false)
     private Users user;
 
+    /**
+     * Indicates whether the notification has been read by the user.
+     * A value of true means the notification has been viewed by the user,
+     * while false indicates it is still unread.
+     */
     private boolean read;
 
 }

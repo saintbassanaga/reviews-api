@@ -28,12 +28,27 @@ import lombok.Setter;
 @Entity
 @Table(name = "Report")
 public class Report extends AbstractEntity {
+    /**
+     * The reason or justification for submitting the report.
+     * This field contains a textual description explaining why the user is reporting the review,
+     * such as inappropriate content, spam, or factual inaccuracies.
+     */
     private String reason;
 
+    /**
+     * The user who submitted the report.
+     * This establishes a mandatory many-to-one relationship with the Users entity.
+     * Changes to the associated user will cascade to this report.
+     */
     @ManyToOne(cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "userId", nullable = false)
     private Users user;
 
+    /**
+     * The review that is being reported.
+     * This establishes a mandatory many-to-one relationship with the Reviews entity.
+     * Changes to the associated review will cascade to this report.
+     */
     @ManyToOne(cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "reviewsId", nullable = false)
     private Reviews reviews;

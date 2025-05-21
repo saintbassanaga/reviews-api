@@ -27,13 +27,27 @@ import java.util.UUID;
 @Table(name = "TrustLevel")
 
 public class TrustLevel {
+    /**
+     * Unique identifier for the trust level.
+     * Automatically generated as a UUID when a new trust level is persisted.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", nullable = false)
     private UUID id;
 
+    /**
+     * The name of the trust level.
+     * This field represents the designation of the trust level, such as "Bronze", "Silver", "Gold", etc.,
+     * which indicates the user's reputation or credibility level in the system.
+     */
     private String name;
 
+    /**
+     * Additional details about the trust level.
+     * This field provides a more detailed explanation of what the trust level represents,
+     * its criteria, benefits, or any other relevant information.
+     */
     private String description;
 
 }

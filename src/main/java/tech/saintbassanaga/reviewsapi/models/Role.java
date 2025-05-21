@@ -34,12 +34,32 @@ import java.util.Set;
 @AllArgsConstructor
 @Table(name = "Role")
 public class Role extends AbstractEntity {
+    /**
+     * The name or title of the role.
+     * This field represents the designation assigned to users, such as "Admin", "Moderator", "User", etc.
+     */
     private String designations;
+
+    /**
+     * Additional details about the role.
+     * This field provides a more detailed explanation of the role's purpose, responsibilities, or permissions.
+     */
     private String description;
 
+    /**
+     * The category or group to which this role belongs.
+     * This field maps to an enumerated type that categorizes roles into predefined groups,
+     * helping to organize and manage roles within the system.
+     */
     @Enumerated(EnumType.STRING)
     private RoleGroup roleGroup;
 
+    /**
+     * The set of users assigned to this role.
+     * This establishes a many-to-many relationship with the Users entity,
+     * allowing multiple users to have multiple roles.
+     * The relationship is mapped by the "roles" field in the Users entity.
+     */
     @ManyToMany(mappedBy = "roles")
     private Set<Users> users = new HashSet<>();
 }

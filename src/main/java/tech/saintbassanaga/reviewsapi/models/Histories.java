@@ -26,9 +26,24 @@ import lombok.Setter;
 @Entity
 @Table(name = "Histories")
 public class Histories extends AbstractEntity {
+    /**
+     * Textual representation of the user's feeling or feedback about the review.
+     * This can include emotional responses, comments, or other qualitative feedback.
+     */
     private String feeling;
+
+    /**
+     * Numerical or categorical rating associated with the review.
+     * This represents the quantitative assessment of the review's quality or relevance.
+     */
     private String rating;
 
+    /**
+     * The review that this history entry is associated with.
+     * This establishes a many-to-one relationship with the Reviews entity,
+     * allowing multiple history entries to be associated with a single review.
+     * Changes to the associated review will cascade to this history entry.
+     */
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "reviewsId")
     private Reviews reviews;

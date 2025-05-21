@@ -26,14 +26,29 @@ import lombok.Setter;
 @Entity
 @Table(name = "Moderations")
 public class Moderations extends AbstractEntity {
+    /**
+     * The review being moderated.
+     * This establishes a mandatory many-to-one relationship with the Reviews entity.
+     * Changes to the associated review will cascade to this moderation record.
+     */
     @ManyToOne(cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "reviewsId", nullable = false)
     private Reviews reviews;
 
+    /**
+     * The user performing the moderation action.
+     * This establishes a mandatory many-to-one relationship with the Users entity.
+     * Changes to the associated user will cascade to this moderation record.
+     */
     @ManyToOne(cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "userId", nullable = false)
     private Users user;
 
+    /**
+     * The current status of the moderation process.
+     * This field indicates the state of the review in the moderation workflow,
+     * such as "pending", "approved", "rejected", etc.
+     */
     private String status;
 
 }
