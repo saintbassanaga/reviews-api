@@ -7,8 +7,8 @@ import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * Created by saintbassanaga {saintbassanaga}
- * In the Project reviews-api at Thu - 4/24/25
+ * Interface for managing product-related operations.
+ * Provides methods for adding, searching, and deleting products.
  */
 
 public interface ProductService {

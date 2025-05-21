@@ -11,6 +11,22 @@ import java.math.BigInteger;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * Represents a user entity within the system. A user is uniquely identified by a username and can
+ * have specific roles, credentials, and a trust level associated with them.
+ *
+ * This entity is mapped to the "Users" table in the database and enforces unique constraints on the
+ * username field. It implements the UserDetails interface to integrate with Spring Security for
+ * authentication and authorization purposes.
+ *
+ * Key features:
+ * - Embeds {@link Credentials} for storing user credentials (username, password, email).
+ * - Maintains a one-to-one relationship with {@link TrustLevel} to denote the user's trust level.
+ * - Supports many-to-many relationships with {@link Role} to indicate the user's assigned roles.
+ *
+ * This class extends {@link AbstractEntity}, inheriting common entity attributes such as
+ * `id`, `timestamps`, and audit information.
+ */
 @Getter
 @Setter
 @Entity
@@ -37,9 +53,10 @@ public class Users extends AbstractEntity implements UserDetails {
     private List<Role> roles ;
 
     /**
-     * Returns the authorities granted to the user. Cannot return <code>null</code>.
+     * Retrieves the authorities granted to the user.
+     * This determines the roles or permissions the user has within the system.
      *
-     * @return the authorities, sorted by natural key (never <code>null</code>)
+     * @return a collection of authorities assigned to the user
      */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

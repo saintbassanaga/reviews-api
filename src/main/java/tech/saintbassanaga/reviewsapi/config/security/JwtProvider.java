@@ -21,11 +21,25 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+
 /**
- * @author saintbassanaga
- * @created 10/03/2025 - 13:56
- * @project mercurial-rest
- * @package com.siic.dgls.mercurial.config.security
+ * JwtProvider is a component responsible for generating JWT tokens for user authentication.
+ * It utilizes a combination of services and encoders to authenticate a user and produce
+ * a secure access token with the appropriate claims.
+
+ * This class is typically used in authentication workflows to handle the creation and association
+ * of JWT tokens to user credentials. It ensures that the generated tokens can be used for secure
+ * communication and authorization within the system.
+
+ * Responsibilities:
+ * - Authenticate a user with the provided username and password.
+ * - Generate a secure JWT token with user-specific claims.
+ * - Add essential claims such as issued time, expiration time, issuer details, and user scope.
+
+ * Dependencies:
+ * - AuthenticationManager: Used to authenticate user credentials.
+ * - AuthService: Service to retrieve user details and validate the user exists.
+ * - JwtEncoder: Encodes the JWT with claims for secure transmission.
  */
 @Component
 @RequiredArgsConstructor

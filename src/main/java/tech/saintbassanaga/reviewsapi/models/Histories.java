@@ -4,6 +4,23 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Represents the history of interactions or feedback associated with reviews.
+ *
+ * This entity is mapped to the "Histories" table in the database and extends
+ * {@link AbstractEntity}, inheriting common fields such as `id`, timestamps,
+ * and audit information. The `Histories` entity records additional details
+ * such as feelings and ratings related to a specific review.
+ *
+ * Key features:
+ * - Includes a `feeling` field to capture textual feedback or emotion related
+ *   to the review.
+ * - Contains a `rating` field to store numerical feedback associated with the review.
+ * - Maintains a many-to-one relationship with the {@link Reviews} entity to
+ *   associate the history entry with a specific review.
+ * - Applies cascade operations on the `Reviews` relationship, ensuring
+ *   changes or deletions in a `Review` propagate to related history records.
+ */
 @Getter
 @Setter
 @Entity
